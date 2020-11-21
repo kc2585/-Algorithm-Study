@@ -1,8 +1,9 @@
 <h2>알고리즘 스터디</h2>
 
 
-알고리즘 : 백준 프로그래머스<br>
-i) 백준
-: 문제집 code.plus 알고리즘 초급 그래프 ~ 중급 끝까지 (도전 제외) <br>
+알고리즘 : 백준/codeplus 알고리즘 중급 - 프로그래머스/LEVEL 1 2 3<br> 
 sql : 프로그래머스<br>
 web : 추후 찾아봄
+
+slack에 feed back ok ok
+
