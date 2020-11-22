@@ -12,6 +12,7 @@ void dfs(int idx) {
 		int next = v[idx][i];
 		if (visited[next])continue;
 		visited[next] = 1;
+		dfs(next);
 	}
 }
 int main() {
