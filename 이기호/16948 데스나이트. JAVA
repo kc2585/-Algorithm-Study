@@ -1,1 +1,66 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+	public static int N;
+	public static int r1, r2, c1, c2;
+	public static int dx[] = {-2, -2, 0, 0, 2, 2};
+	public static int dy[] = {-1, 1, -2, 2, -1, 1};
+	public static int num = -1;
+	
+	public static class Pair {
+		int x;
+		int y;
+		int cnt;
+		
+		public Pair(int x, int y, int cnt) {
+			this.x = x;
+			this.y = y;
+			this.cnt = cnt;
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		
+		N = sc.nextInt();
+		r1 = sc.nextInt();
+		c1 = sc.nextInt();
+		r2 = sc.nextInt();
+		c2 = sc.nextInt();
+		
+		check(r1, c1);
+		System.out.println(num);
+	}
+
+	public static void check(int r, int c) { 
+		Queue<Pair> queue = new LinkedList<>();
+		boolean visited[][] = new boolean[N][N];
+		visited[r][c] = true;
+		queue.add(new Pair(r, c, 0));
+		
+		while(!queue.isEmpty()) {
+            Pair p = queue.poll();
+
+            if(p.x == r2 && p.y == c2) {
+                num = p.cnt;
+                return;
+            }
+
+            for(int i = 0; i < 6; i++) {
+                int nx = p.x + dx[i];
+                int ny = p.y + dy[i];
+
+                if(nx >= 0 && nx < N && ny >= 0 && ny < N && !visited[nx][ny]) {
+                    visited[nx][ny] = true;
+                    queue.add(new Pair(nx, ny, p.cnt+1));
+                }
+            }
+
+        }
+	}
+	
+}
 
