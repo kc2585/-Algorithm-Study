@@ -1,54 +1,64 @@
 import java.util.*;
- 
+
 public class Main {
 	
-	static String[] arr = new String[10000]; 
-    static boolean[] visited = new boolean[10000]; 
-	
+    static class Number {
+        int num;
+        String command;
+
+        public Number(int num, String command) {
+            this.num = num;
+            this.command = command;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
- 
-        for (int i = 0; i <n ; i++) {
-            int a = sc.nextInt();
-            int b =sc.nextInt();
-           
-            Queue<Integer> q = new LinkedList<>();
- 
-            visited[a] = true;
-            q.add(a);
-            Arrays.fill(arr,"");
-            while (!q.isEmpty() && !visited[b]){
-                int now =q.poll();
-                int D = (2*now)%10000;
-                int S = (now == 0) ? 9999 : now-1;
-                int L = (now % 1000) * 10 + now/1000;
-                int R = (now % 10) * 1000 + now/10;
- 
-                if(!visited[D]){
-                    q.add(D);
-                    visited[D]=true;
-                    arr[D]=arr[now] + "D";
+        int T = sc.nextInt();
+
+        for (int tc = 0; tc < T; tc++) {
+            int A = sc.nextInt();
+            int B = sc.nextInt();
+
+            boolean[] visit = new boolean[10000];
+            Queue<Number> q = new LinkedList<>();
+            q.offer(new Number(A, ""));
+            visit[A] = true;
+
+            while (!q.isEmpty()) {
+                int now = q.peek().num;
+                String command = q.peek().command;
+                q.poll();
+
+                if (now == B) {
+                    System.out.println(command);
+                    break;
                 }
- 
-                if(!visited[S]){
-                    q.add(S);
-                    visited[S]=true;
-                    arr[S]=arr[now] + "S";
+
+                int next = (now * 2) % 10000;
+                if (!visit[next]) {
+                    visit[next] = true;
+                    q.offer(new Number(next, command + "D"));
                 }
-                if(!visited[L]){
-                    q.add(L);
-                    visited[L]=true;
-                    arr[L]=arr[now] + "L";
+                next = now == 0 ? 9999 : now - 1;
+                if (!visit[next]) {
+                    visit[next] = true;
+                    q.offer(new Number(next, command + "S"));
                 }
-                if(!visited[R]){
-                    q.add(R);
-                    visited[R]=true;
-                    arr[R]=arr[now] + "R";
+
+                next = now / 1000 + (now % 1000) * 10;
+                if (!visit[next]) {
+                    visit[next] = true;
+                    q.offer(new Number(next, command + "L"));
+                }
+                next = now % 10 * 1000 + now / 10;
+                if (!visit[next]) {
+                    visit[next] = true;
+                    q.offer(new Number(next, command + "R"));
                 }
             }
-            System.out.println(arr[b]);
-        }
- 
+        } 
+        sc.close();
     }
+
 }
